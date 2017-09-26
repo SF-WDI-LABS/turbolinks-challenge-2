@@ -21,16 +21,17 @@ var page_view_count = {
   "lightcoral": 0,
   "lightseagreen": 0
 };
+// $(document).on("turbolinks:load", function...)
 document.addEventListener("turbolinks:load", function(e){
   var current_path = window.location.pathname.split('/')[1];
   if (current_path.length > 1) {
     $("body").css("background-color", current_path);
-    page_view_count[current_path] += 1;
   } else {
-    page_view_count["home"] += 1;
+    current_path = "home";
   }
-    $("#home .view_count.badge").text(page_view_count["home"]);
-    $("#lightcoral .view_count.badge").text(page_view_count["lightcoral"]);
-    $("#lightseagreen .view_count.badge").text(page_view_count["lightseagreen"]);
-    $("#goldenrod .view_count.badge").text(page_view_count["goldenrod"]);
+  page_view_count[current_path] += 1;
+
+  for (let page in page_view_count) {
+    $(`#${page} .view_count.badge`).text(page_view_count[page]);
+  }
 });
